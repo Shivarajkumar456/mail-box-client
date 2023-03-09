@@ -11,7 +11,8 @@ const SignUp = () => {
   const emailInputRef=useRef();
   const passwordInputRef=useRef();
   const confirmPasswordRef = useRef();
-  const[isLogin ,setIsLogin] = useState(false);
+  const[isLogin ,setIsLogin] = useState(true);
+  
   const submitHandler = (event)=>{
       event.preventDefault();
       const enteredEmail=emailInputRef.current.value;
@@ -20,8 +21,12 @@ const SignUp = () => {
       if(isLogin){
         url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBqoJ3GZ7wuI-xQFNPC9xXejL4QZy4XtUw';
       }else {
+        if(passwordInputRef.current.value===confirmPasswordRef.current.value){
         url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBqoJ3GZ7wuI-xQFNPC9xXejL4QZy4XtUw'
-      }
+      }else{
+        alert('password not matched');
+        return; }
+    }
       fetch(url,{
           method:'POST',
           body:JSON.stringify({

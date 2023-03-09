@@ -20,8 +20,8 @@ const authSlice = createSlice({
       state.email = email;
     },
     logout(state) {
-        localStorage.removeItem('exp_token');
-        localStorage.removeItem('exp_email');
+        localStorage.removeItem('token');
+        localStorage.removeItem('email');
         state.token = '';
         state.email = '';
         state.isLoggedin = false;

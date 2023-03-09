@@ -34,9 +34,15 @@ const MyNavbar = ()=> {
                 <Nav.Link className="h6"><NavLink to="/home" className='navbar-link'>
                   Home
                 </NavLink></Nav.Link>
-                <Nav.Link className="h6"><NavLink to="/compose" className='navbar-link'>
+                {isLoggedIn && <Nav.Link className="h6"><NavLink to="/compose" className='navbar-link'>
                   Compose
-                </NavLink></Nav.Link>
+                </NavLink></Nav.Link>}
+                {isLoggedIn && <Nav.Link className="h6"><NavLink to="/inbox" className='navbar-link'>
+                  Inbox
+                </NavLink></Nav.Link>}
+                {isLoggedIn && <Nav.Link className="h6"><NavLink to="/sent" className='navbar-link'>
+                  Sent
+                </NavLink></Nav.Link>}
                 {isLoggedIn && <Nav.Link className="h6"><NavLink className='navbar-link' to="/logout" onClick={logoutHandler}>
                   Logout
                 </NavLink></Nav.Link>}
