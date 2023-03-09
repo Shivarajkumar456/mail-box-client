@@ -13,8 +13,8 @@ const authSlice = createSlice({
     updateAuthInfo(state, action) {
       const token = action.payload.token;
       const email = action.payload.email;
-      localStorage.setItem("exp_token", token);
-      localStorage.setItem("exp_email", email);
+      localStorage.setItem("token", token);
+      localStorage.setItem("email", email);
       state.isLoggedin = true;
       state.token = token;
       state.email = email;

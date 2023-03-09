@@ -1,8 +1,10 @@
 import React from "react";
-import { Navbar, Nav, Container, NavLink } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../../store/Auth";
+import './Navbar.css';
 
 const MyNavbar = ()=> {
     const isLoggedIn = useSelector(state=> state.auth.isLoggedin);
@@ -29,12 +31,15 @@ const MyNavbar = ()=> {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ms-auto">
-                <Nav.Link to="/home" className="h6">
+                <Nav.Link className="h6"><NavLink to="/home" className='navbar-link'>
                   Home
-                </Nav.Link>
-                {isLoggedIn && <NavLink to="/logout" onClick={logoutHandler} className="h6">
+                </NavLink></Nav.Link>
+                <Nav.Link className="h6"><NavLink to="/compose" className='navbar-link'>
+                  Compose
+                </NavLink></Nav.Link>
+                {isLoggedIn && <Nav.Link className="h6"><NavLink className='navbar-link' to="/logout" onClick={logoutHandler}>
                   Logout
-                </NavLink>}
+                </NavLink></Nav.Link>}
               </Nav>
             </Navbar.Collapse>
           </Container>
