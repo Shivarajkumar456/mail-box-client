@@ -1,8 +1,13 @@
 import { Fragment, useState, useRef } from "react";
 import { Form ,Button} from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/Auth";
 import './SignUp.css';
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const emailInputRef=useRef();
   const passwordInputRef=useRef();
   const confirmPasswordRef = useRef();
@@ -13,9 +18,9 @@ const SignUp = () => {
       const enteredPassword=passwordInputRef.current.value;
       let url;
       if(isLogin){
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAGhMOoCkZh2xzJ3X_mtq7XNf2z2AOvrrQ';
+        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBqoJ3GZ7wuI-xQFNPC9xXejL4QZy4XtUw';
       }else {
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAGhMOoCkZh2xzJ3X_mtq7XNf2z2AOvrrQ'
+        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBqoJ3GZ7wuI-xQFNPC9xXejL4QZy4XtUw'
       }
       fetch(url,{
           method:'POST',
@@ -25,27 +30,29 @@ const SignUp = () => {
               returnSecureToken : true 
           }),
           headers :{'Content-type':'application/json'},
-      }).then(res=>{
-          if(res.ok){
-              return res.json()
-          }
-          else{
-              return res.json().then((data)=>{
-                  let errorMessage="";
-                  if(data && data.error &&  data.error.message){
-                          errorMessage=data.error.message;
-                  }
-                  throw new Error(errorMessage)
-              })
-
-          }
-      }).then(data=>{
-          console.log("SignUp success");
-
-      }).catch(err =>{
-          alert(err.message);
+      }).then((res)=>{
+        if(res.ok){
+          return res.json();
+        }else{
+          return res.json().then(data=>{
+            let errorMessage = 'Authentication Failed!';
+            // if(data && data.error && data.error.message){
+            //   errorMessage = data.error.message
+            // }
+            throw new Error(errorMessage);
+          })
+        }
+      }).then((data) => {
+        dispatch(authActions.updateAuthInfo({
+          token: data.idToken,
+          email: emailInputRef.current.value
+        }))
+          navigate('/home');
       })
-      }
+      .catch((err) => {
+        alert(err.message);
+      });
+    }
   const switchAuthHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
