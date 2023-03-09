@@ -7,7 +7,7 @@ export const addMail = (mail) => {
         try {
             const response = await fetch(`https://mail-box-8893a-default-rtdb.firebaseio.com/${senderEmail}.json`, {
                 method: "POST",
-                body: JSON.stringify({ ...mail }),
+                body: JSON.stringify({ ...mail, read:true }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -16,7 +16,7 @@ export const addMail = (mail) => {
             if (senderEmail !== receiverEmail) {
                 await fetch(`https://mail-box-8893a-default-rtdb.firebaseio.com/${receiverEmail}.json`, {
                     method: "POST",
-                    body: JSON.stringify({ ...mail }),
+                    body: JSON.stringify({ ...mail, read:false }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -48,14 +48,19 @@ export const replacemail = (emailUrl, loggedInEmail) => {
             const data = await res.json();
 
             if (res.ok) {
-                let mailData = []
+                let mailData = [];
+                let unReadMessage = 0;
                 for (let key in data) {
-                    mailData = [{ id: key, ...data[key] }, ...mailData]
+                    mailData = [{ id: key, ...data[key] }, ...mailData];
+                    if(data[key].to === loggedInEmail && data[key].read === false){
+                        unReadMessage++;
+                    }
                 }
                 console.log("first time", mailData)
                 dispatch(
                     mailAction.replace({
-                        mailData: mailData
+                        mailData: mailData,
+                        unReadMessage: unReadMessage
                     })
                 )
             } else {
