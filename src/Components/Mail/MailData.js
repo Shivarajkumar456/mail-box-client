@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux'
 import { Container , Row , Col , Button } from 'react-bootstrap';
-import deleteMail from '../../store/MailAction';
+import {deleteMail} from '../../store/MailAction';
 import { NavLink } from 'react-router-dom'
 
 const MailData = (props) => {

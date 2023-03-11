@@ -78,7 +78,7 @@ export const deleteMail=(mail)=>{
     const emailUrl = userEmail.replace("@","").replace(".","")
     return async (dispatch)=>{
          try{
-           const res = await fetch(`https://mail-box-42f0f-default-rtdb.firebaseio.com/${emailUrl}/${mail.id}.json`,
+           const res = await fetch(`https://mail-box-8893a-default-rtdb.firebaseio.com/${emailUrl}/${mail.id}.json`,
            {
             method :"DELETE"
            })
@@ -91,5 +91,37 @@ export const deleteMail=(mail)=>{
          }catch(error){
             console.log(error.message)
          }
+    }
+}
+
+export const updateMail=(emailUrl , loggedUserEmail , currentMail)=>{
+    return async(dispatch)=>{
+        try{
+            const res = await fetch(`https://mail-box-8893a-default-rtdb.firebaseio.com/${emailUrl}.json`)
+
+            const data = await res.json();
+            let mailData =[];
+            let unReadMessage =0;
+
+            if(res.ok){
+
+                    for(let key in data){
+                        mailData =[{id:key , ...data[key]} , ...mailData]
+                        if(data[key].to === loggedUserEmail && data[key].read === false){
+                            unReadMessage ++
+                        }
+                    }
+                    dispatch(
+                        mailAction.replace({
+                            mailData :mailData ,
+                            unReadMessage : unReadMessage
+                           })
+                    )
+            }else{
+                throw data.error
+            }
+        }catch(error){
+            console.log(error.message)
+        }
     }
 }

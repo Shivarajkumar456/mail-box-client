@@ -1,10 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Col, Button } from 'react-bootstrap';
-
-import MailData from '../Components/UI/MailData';
+import MailData from '../Mail/MailData';
 import { useDispatch } from 'react-redux';
-import { deleteMail } from '../Components/store/MailAction';
+import { deleteMail } from '../../store/MailAction'
 
 const SentEmail = () => {
     const dispatch = useDispatch()
@@ -17,9 +16,9 @@ const SentEmail = () => {
 
     const mailItem = sentMail.map(mail => (
         <div> <MailData key={mail.id} mail={mail} toorFrom='From' />
-            <Col xs={2}>
+            {/* <Col xs={2}>
       <Button mail={mail} onClick={deleteMailHandler(mail)} variant="danger">Delete</Button>
-    </Col>
+    </Col> */}
         </div>
     ))
 

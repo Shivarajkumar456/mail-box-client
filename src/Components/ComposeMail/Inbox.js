@@ -17,9 +17,8 @@ const InboxEmail = () => {
     }
 
     const mailItem = inboxMail.map(mail=>(
-        <div><NavLink to={`/inbox/${mail.id}`}> <MailData key={mail.id} mail={mail} toorFrom='From' /></NavLink><Col xs={2}>
-        <Button mail={mail} onClick={deleteMailHandler(mail)} variant="danger">Delete</Button>
-      </Col></div>
+        <div><NavLink to={`/inbox/${mail.id}`}> <MailData key={mail.id} mail={mail} toorFrom='From' /></NavLink>
+      </div>
     ));
 
   return (
