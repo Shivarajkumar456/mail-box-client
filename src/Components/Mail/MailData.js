@@ -6,7 +6,8 @@ import { NavLink } from 'react-router-dom'
 
 const MailData = (props) => {
   const dispatch = useDispatch();
-  const deleteMailHandler=()=>{
+  const deleteMailHandler=(event)=>{
+    event.preventDefault();
     dispatch(deleteMail(props.mail))
 }
   return (
@@ -14,7 +15,7 @@ const MailData = (props) => {
     <Container>
         <Row>
         <NavLink to={`/${props.mail.id}`}>
-        { props.toorFrom==="From" && !props.mail.read &&
+        { props.toorFrom==="From" && props.mail.read &&
           <Col xs={1}>
             <iconify-icon icon="ri:checkbox-blank-circle-fill" style={{color : "blue"}}></iconify-icon>
           </Col>}
@@ -25,7 +26,7 @@ const MailData = (props) => {
           </NavLink>
           <Col xs={5}>{props.mail.title}</Col>
           <Col xs={2}>
-            <Button variant="danger" onClick={deleteMailHandler}>Delete</Button>
+            <Button className='mb-2' variant="danger" onClick={deleteMailHandler}>Delete</Button>
           </Col>
           <hr />
         </Row>

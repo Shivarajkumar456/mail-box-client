@@ -15,16 +15,14 @@ const MailPage = () => {
     //put request 
     const readTrue = async () => {
         try {
-            const res = await fetch(`https://mail-box-42f0f-default-rtdb.firebaseio.com/${mailid}/${pageMail[0].id}.json`, {
+            const res = await fetch(`https://mail-box-8893a-default-rtdb.firebaseio.com/${mailid}/${pageMail[0].id}.json`, {
                 method: "PUT",
-                body: JSON.stringify({ ...pageMail[0], read: true }),
+                body: JSON.stringify({ ...pageMail[0], read: false }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-
             const data = await res.json();
-
             if (res.ok) {
                 dispatch(replacemail(`${mailid}`));
             } else {

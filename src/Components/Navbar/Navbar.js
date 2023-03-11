@@ -8,7 +8,7 @@ import './Navbar.css';
 
 const MyNavbar = ()=> {
     const isLoggedIn = useSelector(state=> state.auth.isLoggedin);
-    const unReadMessage = useSelector(state=>state.mail.unReadMessage)
+    const unReadMessage = useSelector(state=>state.mail.unReadMessage);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const logoutHandler = (e) => {
@@ -39,7 +39,7 @@ const MyNavbar = ()=> {
                   Compose
                 </NavLink></Nav.Link>}
                 {isLoggedIn && <Nav.Link className="h6"><NavLink to="/inbox" className='navbar-link'>
-                  Inbox {unReadMessage}
+                  Inbox {unReadMessage>0?unReadMessage:''}
                 </NavLink></Nav.Link>}
                 {isLoggedIn && <Nav.Link className="h6"><NavLink to="/sent" className='navbar-link'>
                   Sent

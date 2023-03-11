@@ -9,14 +9,14 @@ const Home =() =>{
 
     if(isLoggedIn && firstTime){
       const loggedEmail = localStorage.getItem('email');
-      const emailUrl = loggedEmail.replace("@","").replace(".","");
+      const emailUrl = loggedEmail.replace(/[@.]/g, '');
      dispatch(replacemail(emailUrl , loggedEmail));
     }
     
     setInterval(()=>{
         if(isLoggedIn){
           const loggedEmail = localStorage.getItem('email');
-          const emailUrl = loggedEmail.replace("@", "").replace(".", "");
+          const emailUrl = loggedEmail.replace(/[@.]/g, '');
           dispatch(updateMail(emailUrl , loggedEmail , currentMail));
         }
       } , 2000);

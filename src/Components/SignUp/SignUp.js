@@ -1,6 +1,6 @@
 import { Fragment, useState, useRef } from "react";
 import { Form ,Button} from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/Auth";
 import './SignUp.css';
@@ -97,6 +97,7 @@ const SignUp = () => {
         </div>
         <div>
         <Button variant="primary" type="submit" >{isLogin ? "Login" : "Sign up"}</Button><br/>
+        {isLogin && <p className='text-center'><NavLink to='/forgotPassword'>Forget password?</NavLink></p>}
         </div> 
       </Form>
       <div className='text-center'>

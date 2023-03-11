@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Col,Row,Form,Button } from "react-bootstrap";
-import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { addMail } from "../../store/MailAction";
-import { mailAction } from "../../store/MailSlice";
 import  './ComposeMail.css';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 const ComposeMail = () =>{
 
     const dispatch = useDispatch();
@@ -28,7 +27,6 @@ const ComposeMail = () =>{
        }
        console.log(mailData);
        dispatch(addMail(mailData));
-       dispatch(mailAction.add(mailData));
        inputMailRef.current.value=""
         inputSubjectRef.current.value=""
         setEditorState(null)
@@ -37,7 +35,7 @@ const ComposeMail = () =>{
         <div>
             <div style={{width:60+"%" , justifyContent:"center" , margin:"auto"} }>
       <Form   onSubmit={composeMailHandler} className="text-center mt-3 mr-3">
-        <Button variant="secondary" type="submit" className="mb-5">Send</Button> 
+        <Button variant="secondary" type="submit" className="mt-2 mb-2">Send</Button> 
         <Row >
           <Col xs={1}>
             <Form.Label>To</Form.Label>

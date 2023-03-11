@@ -6,6 +6,7 @@ import ComposeMail from './Components/ComposeMail/ComposeMail';
 import MailPage from './Components/Mail/MailPage';
 import InboxEmail from './Components/ComposeMail/Inbox';
 import SentEmail from './Components/ComposeMail/Sent';
+import ForgotPassword from './Components/SignUp/ForgotPassword';
 import './App.css';
 import { Fragment } from 'react';
 
@@ -17,11 +18,11 @@ function App() {
       <Route path="/" element={<SignUp />} exact/>
         <Route path="/home" element={<Home/>} />
         <Route path="/login" element={<SignUp />} />
+        <Route path='/forgotPassword' element={<ForgotPassword />} />
         <Route path='/compose' element={<ComposeMail />} />
         <Route path='/inbox' element={<InboxEmail/>} />
-        <Route path='/inbox/:id' element={<MailPage />} />
+        <Route path='/:id' element={<MailPage />} />
         <Route path='/sent' element={<SentEmail/>}/>
-        <Route path='/sent/:id' element={<MailPage/>}/>
       </Routes>
     </Fragment>
   );
